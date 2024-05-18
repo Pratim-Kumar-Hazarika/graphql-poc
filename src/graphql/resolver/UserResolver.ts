@@ -11,6 +11,7 @@ import { User } from '../models/User';
 import { mockUsers } from 'src/_mocks_/mockUser';
 import { UserSetting } from '../models/UserSetting';
 import { mockUserSetting } from 'src/_mocks_/mockUserSettings';
+import { CreateUserInput } from '../utils/CreateUserInput';
 
 export let counter = 3;
 @Resolver(() => User)
@@ -32,8 +33,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   createUser(
-    @Args('username') username: string,
-    @Args('displayName', { nullable: true }) displayName: string,
+    @Args('createUserData') { username, displayName }: CreateUserInput,
   ) {
     const newUser = { username, displayName, id: ++counter };
     mockUsers.push(newUser);
